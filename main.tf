@@ -15,6 +15,6 @@ provider "azuread" {
 
 module "active_sample" {
   
-  source           = "./samples/log-analytics"
+  source           = "./samples/cosmos-db"
 
 }

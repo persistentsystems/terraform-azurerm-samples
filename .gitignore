@@ -1,3 +1,4 @@
 local.sh
 .terraform
 *.tfstate
+.DS_Store
