@@ -13,8 +13,37 @@ provider "azuread" {
   version = "=0.7.0"
 }
 
-module "active_sample" {
+
+module "msa-sample" {
   
-  source           = "./samples/cosmos-db"
+  source           = "./samples/scenarios/microservices"
 
 }
+
+
+module "fn-sample" {
+  
+  source           = "./samples/services/fn"
+
+}
+
+
+module "adf-sample" {
+  
+  source           = "./samples/services/datafactory"
+
+}
+
+/*
+module "cosmos-sample" {
+  
+  source           = "./samples/services/cosmos-db"
+
+}*/
+
+/*
+module "log-analytics-sample" {
+  
+  source           = "./samples/services/log-analytics"
+
+}*/
