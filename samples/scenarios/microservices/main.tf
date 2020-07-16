@@ -46,8 +46,6 @@ module "host" {
 
 }
 
-/*
-
 module "svc1" {
   
   source           = "github.com/persistentsystems/terraform-azurerm/scenarios/microservices/fn/http/premium/base/v1"
@@ -58,14 +56,13 @@ module "svc1" {
   service_settings = {
     name              = "pstf-msa-svc1"
     service_name      = "svc1"
-    runtime_version   = "~3
+    runtime_version   = "~3"
     runtime_type      = "dotnet"
     app_settings      = {}
-    package_filename  = "DemoCode.zip"
+    package_filename  = "./samples/scenarios/microservices/DemoCode.zip"
     workspace_id      = module.log_analytics.id
     client_id         = "foo"
     client_secret     = "bar"
   }
 
 }
-*/
