@@ -16,7 +16,7 @@ module "storage" {
     context = module.rg.context
     service_settings = {
         name = "${local.context.application_name}-${local.context.environment_name}-storage-sample"
-        tier = "standard"
+        tier = "Standard"
         type = "GRS"
     }
 }
