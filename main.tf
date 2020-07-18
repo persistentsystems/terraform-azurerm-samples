@@ -13,7 +13,7 @@ provider "azuread" {
   version = "=0.7.0"
 }
 
-
+/*
 module "msa-sample" {
   
   source           = "./samples/scenarios/microservices"
@@ -26,7 +26,7 @@ module "fn-sample" {
   source           = "./samples/services/fn"
 
 }
-
+*/
 
 module "adf-sample" {
   
