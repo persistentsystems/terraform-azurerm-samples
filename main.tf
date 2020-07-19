@@ -28,9 +28,9 @@ module "fn-sample" {
 }
 */
 
-module "adf-sample" {
+module "blobstorage_linkedsvc-sample" {
   
-  source           = "./samples/services/datafactory"
+  source           = "./samples/services/datafactory/linked-services/blob-storage/base/v1"
 
 }
 
