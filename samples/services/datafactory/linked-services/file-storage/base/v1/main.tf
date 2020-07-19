@@ -41,7 +41,7 @@ module "storage-account" {
 module "fileshare" {
   source  = "github.com/persistentsystems/terraform-azurerm/services/storage/file/share/base/v1"
   service_settings = {
-                        name = "pstf_fileshare"
+                        name = "pstf-fileshare"
                         storage_account_name = module.storage-account.name
                         quota = 10
                    }
