@@ -38,6 +38,16 @@ module "storage-account" {
     context = module.rg.context
 }
 
+module "fileshare" {
+  source  = "github.com/persistentsystems/terraform-azurerm/services/storage/file/share/base/v1"
+  service_settings = {
+                        name = "pstf_fileshare"
+                        storage_account_name = module.storage-account.name
+                        quota = 10
+                   }
+    context = module.rg.context
+}
+
 module "filestorage_linkedsvc" {
      source = "github.com/persistentsystems/terraform-azurerm/services/datafactory/linked-services/file-storage/base/v1"
      service_settings = {
