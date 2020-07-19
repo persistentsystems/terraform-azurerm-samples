@@ -42,8 +42,8 @@ module "filestorage_linkedsvc" {
      source = "github.com/persistentsystems/terraform-azurerm/services/datafactory/linked-services/file-storage/base/v1"
      service_settings = {
                         name = "file_storage_linked_svc"
-                        data_factory_name = module.adf-sample.ADF_NAME
-                        connection_string = module.storage-account-sample.primary_connection_string
+                        data_factory_name = module.adf.ADF_NAME
+                        connection_string = module.storage-account.primary_connection_string
                    }
     context = module.rg.context
 }
