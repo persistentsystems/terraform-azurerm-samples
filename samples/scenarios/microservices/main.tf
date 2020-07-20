@@ -2,7 +2,7 @@
 locals {
   context = {
     application_name = "pstf"
-    environment_name = "msa"
+    environment_name = "dev"
     location = "East US"
     location_suffix = "us-east"
   }
@@ -14,7 +14,7 @@ module "rg" {
   source  = "github.com/persistentsystems/terraform-azurerm/services/resource-group/base/v1"
 
   context = local.context
-  name    = "pstf-msa"
+  name    = "pstf-dev"
 
 }
 
@@ -24,7 +24,7 @@ module "log_analytics" {
 
   context = module.rg.context
   service_settings = {
-    name                   = "pstf-msa"
+    name                   = "pstf-dev"
     retention_in_days      = 30
   }
 
@@ -36,12 +36,13 @@ module "host" {
 
   context = module.rg.context
   service_settings = {
-    name                   = "pstf-msa"
+    name                   = "pstf-dev-svc1"
     size                   = "EP1"
     storage_type           = "GRS"
     workspace_id           = module.log_analytics.id
     maximum_instance_count = 1
     minimum_instance_count = 1
+    soft_delete_enabled = true
   }
 
 }
@@ -54,7 +55,7 @@ module "svc1" {
   host_settings    = module.host.host_settings
 
   service_settings = {
-    name              = "pstf-msa-svc1"
+    name              = "pstf-dev-svc1"
     service_name      = "svc1"
     runtime_version   = "~3"
     runtime_type      = "dotnet"

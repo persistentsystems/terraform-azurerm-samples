@@ -13,12 +13,11 @@ provider "azuread" {
   version = "=0.7.0"
 }
 
-/*
-module "msa-sample" {
-  
-  source           = "./samples/scenarios/microservices"
-
-}
+# module "dev-sample" {
+#   
+#   source           = "./samples/scenarios/microservices"
+# 
+# }
 
 
 module "fn-sample" {
@@ -26,13 +25,12 @@ module "fn-sample" {
   source           = "./samples/services/fn"
 
 }
-*/
 
-module "blobstorage_linkedsvc-sample" {
-  
-  source           = "./samples/services/datafactory/linked-services/blob-storage/base/v1"
-
-}
+# module "blobstorage_linkedsvc-sample" {
+#   
+#   source           = "./samples/services/datafactory/linked-services/blob-storage/base/v1"
+# 
+# }
 
 /*
 module "cosmos-sample" {

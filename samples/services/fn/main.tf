@@ -43,7 +43,7 @@ module "plan" {
     storage_type           = "GRS"
     maximum_instance_count = 1
     minimum_instance_count = 1
-    workspace_id           = "foo"
+    workspace_id           = module.logs.id
   }
 
 }

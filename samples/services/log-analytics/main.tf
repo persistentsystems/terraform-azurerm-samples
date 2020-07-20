@@ -14,7 +14,7 @@ module "rg" {
   source  = "github.com/persistentsystems/terraform-azurerm/services/resource-group/base/v1"
 
   context = local.context
-  name = "pstf-logs"
+  name = "pstf-fn-logs"
 
 }
 
