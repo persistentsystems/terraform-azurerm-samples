@@ -48,7 +48,7 @@ module "cosmosdb_linkedsvc" {
      service_settings = {
                         name = "cosmosdb_linkedsvc"
                         data_factory_name = module.adf.ADF_NAME
-                        connection_string = module.cosmosdb_account-sample.connection_strings[0]
+                        connection_string = module.cosmosdb_account.connection_strings[0]
                    }
     context = module.rg.context
 }
