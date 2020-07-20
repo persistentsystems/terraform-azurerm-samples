@@ -66,7 +66,7 @@ module "svc1" {
     runtime_type = "dotnet"
     app_settings = {}
     plan_id = module.plan.id
-    storage_account = module.plan.storage-account
+    storage_account = module.plan.storage_account
   }
 
 }
