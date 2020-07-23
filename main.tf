@@ -19,10 +19,17 @@ provider "azuread" {
 # 
 # }
 
-
+/*
 module "fn-sample" {
   
   source           = "./samples/services/fn"
+
+}
+*/
+
+module "aks-sample" {
+  
+  source           = "./samples/services/aks"
 
 }
 
