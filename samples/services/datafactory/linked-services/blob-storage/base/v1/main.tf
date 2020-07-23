@@ -42,7 +42,7 @@ module "blobstorage_linkedsvc" {
      source = "github.com/persistentsystems/terraform-azurerm/services/datafactory/linked-services/blob-storage/base/v1"
      service_settings = {
                         name = "pstf-blob_storage_linkedsvc"
-                        data_factory_name = module.adf.ADF_NAME
+                        data_factory_name = module.adf.name
                         connection_string = module.storage-account.primary_connection_string
                    }
     context = module.rg.context
