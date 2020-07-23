@@ -32,7 +32,7 @@ module "web_linkedsvc-sample" {
      source = "github.com/persistentsystems/terraform-azurerm/services/datafactory/linked-services/web/base/v1"
      service_settings = {
                         name = "web_linkedsvc"
-                        data_factory_name = module.adf.ADF_NAME
+                        data_factory_name = module.adf.name
                         authentication_type = "Anonymous"
                         url = "http://www.bing.com"
                    }
