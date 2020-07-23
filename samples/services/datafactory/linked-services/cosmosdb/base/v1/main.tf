@@ -47,7 +47,7 @@ module "cosmosdb_linkedsvc" {
      source = "github.com/persistentsystems/terraform-azurerm/services/datafactory/linked-services/cosmosdb/base/v1"
      service_settings = {
                         name = "cosmosdb_linkedsvc"
-                        data_factory_name = module.adf.ADF_NAME
+                        data_factory_name = module.adf.name
                         connection_string = module.cosmosdb_account.connection_strings[0]
                    }
     context = module.rg.context
