@@ -75,7 +75,7 @@ module "azfn_linkedsvc-sample" {
      source = "github.com/persistentsystems/terraform-azurerm/services/datafactory/linked-services/fn/base/v1"
      service_settings = {
                         name = "azfn_linkedsvc_name"
-                        data_factory_name = module.adf.ADF_NAME
+                        data_factory_name = module.adf.name
                         url = module.svc1.hostname
                         key = module.svc1.function_key
                    }
