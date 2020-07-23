@@ -32,7 +32,7 @@ module "sftp_linkedsvc" {
      source = "github.com/persistentsystems/terraform-azurerm/services/datafactory/linked-services/sftp/base/v1"
      service_settings = {
                         name = "sftp_linkedsvc"
-                        data_factory_name = module.adf.ADF_NAME
+                        data_factory_name = module.adf.name
                         authentication_type = "Basic"
                         host = "test.rebex.net"
                         port = 22
