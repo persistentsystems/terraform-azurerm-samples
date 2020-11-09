@@ -1,0 +1,3 @@
+[submodule "submodules/terraform-azurerm"]
+	path = submodules/terraform-azurerm
+	url = git@github.com:persistentsystems/terraform-azurerm.git
