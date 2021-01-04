@@ -29,7 +29,7 @@ module "appinsights" {
 
   service_settings = {
     name           = "${module.my_resource_group.context.application_name}-${module.my_resource_group.context.environment_name}-${module.my_resource_group.context.location_suffix}"
-    retention_days = 30
+    retention_in_days = 30
   }
 
 }
@@ -40,7 +40,7 @@ module "appinsights" {
 
 module "logs_storage" {
   
-  source = "../../../submodules/terraform-azurerm/services/storage/endpoint/base/v1.2"
+  source = "../../../submodules/terraform-azurerm/services/storage/endpoint/base/v1"
 
   context = module.my_resource_group.context
 

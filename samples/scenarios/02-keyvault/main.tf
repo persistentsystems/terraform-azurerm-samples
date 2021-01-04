@@ -4,7 +4,7 @@ module "coreinfra" {
 
 module "keyvault" {
   
-  source                    = "../../../submodules/terraform-azurerm/services/keyvault/endpoint/base/v1.2"
+  source                    = "../../../submodules/terraform-azurerm/services/keyvault/endpoint/base/v1"
   # 
   # The context (Where) to deploy the keyvault to
   #
