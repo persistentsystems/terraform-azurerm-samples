@@ -54,9 +54,15 @@ has the advantage that the source to the module you are calling is
 in the same source tree.
 
 For this to work, you need to have a modern-ish version of git that
-does submodule processing by default.  If you get errors in the demos
-and this folder is empty, then please follow a blog to have git pull
-in the submodules of this demonstration repo.
+does submodule processing by default.  If you have issues with the 
+/submodules/terraform-azurerm folder missing try the following:
+
+```bash
+git submodule init
+cd submodules/terraform-azurerm
+git pull origin v0.1.<xxx>
+```
+
 
 ## Where to start
 
