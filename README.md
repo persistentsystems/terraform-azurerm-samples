@@ -15,7 +15,7 @@ infrastructure that say: Provisions Azure Functions, API Management and FrontDoo
 Each folder is designed so that you can take the code and modify to 
 your particular needs.
 
-## sampels/services
+## samples/services
 
 Contains folders that demonstrate how to call
 individual modules in our terraform-azurerm repository.  Unlike the
