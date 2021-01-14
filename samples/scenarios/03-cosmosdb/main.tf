@@ -67,4 +67,31 @@ module cosmosdb_account {
   }
 }
 
+module cosmosdb_database {
+  source = "../../../submodules/terraform-azurerm/services/cosmos-db/database/sql/base/v1"
+  context                   = module.coreinfra.context
+  service_settings = {
+    name            = "Northwind-Customers"
+    account_name    = module.cosmosdb_account.name 
+    # for autoscaling resources, shared between all containers
+    # the module just does shared autoscaling at this time.
+    # We can create more modules in the library as needed.
+    max_throughput  = 4000
+  }
 
+}
+
+module "cosmosdb_northwind_customers" {
+  
+  source = "../../../submodules/terraform-azurerm/services/cosmos-db/container/v1"
+
+  context = module.coreinfra.context
+  
+  service_settings = {
+    
+    account_name       = module.cosmosdb_account.name
+    database_name      = module.cosmosdb_database.name
+    name               = "customers"
+    partition_key_path = "/customerid"
+  }
+}
