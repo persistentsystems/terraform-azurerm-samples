@@ -1,6 +1,6 @@
 [submodule "submodules/terraform-azurerm"]
 	path = submodules/terraform-azurerm
 	# This requires a working git account configured
-	#url = git@github.com:persistentsystems/terraform-azurerm.git
+	url = git@github.com:persistentsystems/terraform-azurerm.git
     # This clones a public module, but will be read-only as you haven't authenticated
-	url = git://github.com/persistentsystems/terraform-azurerm.git
+	#url = git://github.com/persistentsystems/terraform-azurerm.git
