@@ -6,7 +6,7 @@ module "coreinfra" {
     source = "../01-coreinfra"
 }
 locals {
-  resource_name = "${module.coreinfra.context.application_name}-${module.coreinfra.context.environment_name}-${module.coreinfra.context.location_suffix}"
+  resource_name = "${module.coreinfra.context.application_name}-${module.coreinfra.context.environment_name}-${module.coreinfra.context.location.suffix}"
 }
 #
 # Create a KeyVault where the cosmosDB module can store the access keys
@@ -17,40 +17,15 @@ module "keyvault" {
   observability_settings    = module.coreinfra.observability_settings
   service_settings = {
     name                    = local.resource_name
-    soft_delete_enabled     = false
   }
 }
-
-#
-# Give the current user access to vault
-# you will need access to search keys etc.
-# This is for a human user, a service account with 
-# an application registration will need to 
-# make some tweaks.
-#
-data "azurerm_client_config" "current" {}
-
-resource azurerm_key_vault_access_policy current_user {
-   key_vault_id   = module.keyvault.id
-   object_id      = data.azurerm_client_config.current.object_id
-   tenant_id      = data.azurerm_client_config.current.tenant_id
- 
-    key_permissions = [
-      "get"
-    ]
-
-    secret_permissions = [
-      "get", "list", "set", "delete", "recover", "backup", "restore","purge", "restore"
-    ]   
-}
-
 
 
 # 
 # Create a cosmosDB account
 #
 module cosmosdb_account {
-  depends_on  = [ azurerm_key_vault_access_policy.current_user ]
+  depends_on  = [ module.keyvault ]
   source      = "../../../submodules/terraform-azurerm/services/cosmos-db/endpoint/dual/secure/v1"
   context                   = module.coreinfra.context
   observability_settings    = module.coreinfra.observability_settings
@@ -58,6 +33,19 @@ module cosmosdb_account {
     name = local.resource_name
     tier = "Standard"
     kind = "GlobalDocumentDB"
+    automatic_failover = false 
+    locations = [
+      {
+        name     = "EastUS"
+        priority = 0
+      },
+      {
+        name     = "WestUS"
+        priority = 1
+      }
+
+
+    ]
     failover_location = "WestUS"
     consistency_level = "Eventual"
   }
