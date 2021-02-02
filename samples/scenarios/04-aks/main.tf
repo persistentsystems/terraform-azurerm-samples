@@ -5,7 +5,7 @@ data http my_ip_address {
   url = "http://ipv4.icanhazip.com"    
 }
 locals {
-    default_resource_name = "${module.coreinfra.context.application_name}-${module.coreinfra.context.environment_name}-${module.coreinfra.context.location_suffix}"
+    default_resource_name = "${module.coreinfra.context.application_name}-${module.coreinfra.context.environment_name}-${module.coreinfra.context.location.suffix}"
     aks_service_offering  = var.aks_service_offerings[var.aks_cluster_size]
 }
 
@@ -31,4 +31,11 @@ module "aks_cluster" {
   # The Observability settings that help create keyvault
   # in a best practices manner
   observability_settings    = module.coreinfra.observability_settings
+}
+
+data "azurerm_monitor_diagnostic_categories" "test" {
+  resource_id = module.aks_cluster.id
+}
+output test {
+  value = data.azurerm_monitor_diagnostic_categories.test.metrics
 }
