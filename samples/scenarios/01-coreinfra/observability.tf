@@ -65,14 +65,15 @@ module "logs_storage" {
 
   context = module.my_resource_group.context
 
-  service_settings = merge(
-    module.logs_storage.service_settings_default,
-    {
+  service_settings = {
       name                = "logretention"
       tier                = "Standard"
       type                = "LRS"  # RAGRS or something better for production use
+      security_settings = {
+        allow_blob_public_access = false
+        min_tls_version          = "TLS1_2"
+      }
     }
-  )
 
 }
 
