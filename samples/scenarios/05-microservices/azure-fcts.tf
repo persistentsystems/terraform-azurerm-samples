@@ -31,6 +31,27 @@ resource "azurerm_storage_container" "code_storage" {
   container_access_type   = "private"
 }
 
+# Note that this works for initial seeding of the Zip file, in practice
+# it is proabalby more normal to upload a build zip file with CLI as 
+# part of CI/CD.
+# Also the Azure Function won't automatically reload just because 
+# you uploaded a new zip.  In the portal you can restart the 
+# function app, or here is a snippet of the CLI we use to 
+# load new code without Restarting the Azure fct:
+/*
+az login --service-principal --username $ARM_CLIENT_ID --password $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
+
+echo Azure CLI - Get Access Token
+export ACCESS_TOKEN=`az account get-access-token --resource=https://management.azure.com/ | jq -r .accessToken`
+
+# This is substituted by Azure DevOps, and doesn't execute 'REGION'
+export REGION=$(REGION)
+export RG_NAME="$APP_NAME-$ENV_NAME-backend-$REGION"
+
+echo 
+curl -s -X POST -H 'Authorization: Bearer '$ACCESS_TOKEN -d '' https://management.azure.com/subscriptions/$ARM_SUBSCRIPTION_ID/resourceGroups/$RG_NAME/providers/Microsoft.Web/sites/$APP_NAME-$ENV_NAME-$REGION/syncfunctiontriggers?api-version=2019-08-01
+*/
+
 resource "azurerm_storage_blob" "deployment_blob" {
   name                    = "DemoPackage.zip"
   storage_account_name    = module.api_hosting_plan.storage_account.name

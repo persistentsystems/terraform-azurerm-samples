@@ -1,3 +1,4 @@
 #!/bin/bash
+set -eu
 dotnet build /p:DeployOnBuild=true /p:DeployTarget=Package;CreatePackageOnPublish=true
 cd obj/Debug/netcoreapp3.1/PubTmp/Out/ ; zip -r ../../../../../../DemoPackage.zip *

@@ -32,4 +32,21 @@ namespace azurerm.demo
             return new OkObjectResult(responseMessage);
         }
     }
+    public static class healthcheck
+    {
+        [FunctionName("healthcheck")]
+        public static async Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
+            ILogger log)
+        {
+
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            dynamic data = JsonConvert.DeserializeObject(requestBody);
+
+            string responseMessage = "All is well!";
+
+            return new OkObjectResult(responseMessage);
+        }
+    }
+
 }

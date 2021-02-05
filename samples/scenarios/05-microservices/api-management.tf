@@ -93,7 +93,7 @@ module "demo_api_fct" {
       # of the URL and there isn't an easy way to import the Paths
       # into terraform.  So I'm hardcoding this path for sake of 
       # demo simplicity.  
-      service_url  = "https://${module.fn_demo.name}.azurewebsites.net/api/AzureRMDemo"
+      service_url  = "https://${module.fn_demo.name}.azurewebsites.net/api/"
 
       products = [ module.product.product_id ]
       subscription_required = true
@@ -114,10 +114,15 @@ resource "azurerm_api_management_api_operation" "name_get" {
   display_name        = "Azure Demo Get"
   description         = "<h2>Get<h2> - perform a get with a name parameter"
   method              = "get"
-  url_template        = "/"  # do not add any paths to the URL passed to the Azure Function, 
+  url_template        = "/AzureRMDemo"  
   response {
     status_code = 200
   }
+  # The parammeter 'name' is passed without harm, so there doesn't see to be a lot 
+  # of need for this tight integration, unless you want to perform validations/transformations
+  # at the API Management Layer.
+  #
+
   #request {
   #  query_parameter {
   #    name = "name"  # The API takes one parameter, called 'name' which is like ?name=joe
@@ -127,6 +132,20 @@ resource "azurerm_api_management_api_operation" "name_get" {
   #}
 
 
+}
+
+resource "azurerm_api_management_api_operation" "health_get" {
+  resource_group_name = local.context.resource_group_name
+  api_management_name = module.apim.name 
+  api_name            = module.demo_api_fct.name 
+  operation_id        = "healthcheck"
+  display_name        = "Health Check"
+  description         = "Returns if the resources by the Azure Function are working."
+  method              = "get"
+  url_template        = "/healthcheck"  # do not add any paths to the URL passed to the Azure Function, 
+  response {
+    status_code = 200
+  }
 }
 
 
