@@ -12,7 +12,11 @@ module "keyvault" {
   
   # KeyVault specific settings 
   service_settings = {
-    name                    = "${module.coreinfra.context.application_name}-${module.coreinfra.context.environment_name}-${module.coreinfra.context.location.suffix}"
+    # keyvault only allows 24 characters and needs to be globally unique, for this demo i'm using the 
+    # random string instead of application name to avoid conflicts.  There isnt' enough characters for the 
+    # 'fully qualified' local.default_resource_name
+    name                    = "${module.coreinfra.deploy_suffix}-${module.coreinfra.context.environment_name}"
+
   }
 
 }

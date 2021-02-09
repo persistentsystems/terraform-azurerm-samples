@@ -48,12 +48,13 @@ module "frontdoor" {
   observability_settings = local.observability_settings 
 
   service_settings = {
+    # This resource is global, so the location is not put in the name
     name              = "${local.context.application_name}-${local.context.environment_name}-${local.random_string}"
     waf_id            = module.waf.id
     pools = [
         {
             name             = "demoapi"
-            healthprobe_path = "/healthcheck"
+            healthprobe_path = "/demo-health"
             latency          = 0 
             backends = [
                     {

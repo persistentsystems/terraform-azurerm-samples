@@ -103,6 +103,36 @@ module "demo_api_fct" {
 
   }
 }
+# Craete a second API that doesn't require a subscription for the health check.
+# The service_URL is locked down more also, so only /api/healtcheck can be hit
+# without a subscription.  Front Door Will use this api (a lot), and other 
+# monitoring tools could be used also.
+module "demo_api_health" {
+  source = "../../../submodules/terraform-azurerm/services/api-management/api/base/v1"
+  context = local.context
+  service_settings = {
+    endpoint = module.apim.name 
+    logger   = module.apim.logger.id 
+    api = {
+      name         = "demo-health"
+      description  = "demonstration healthcheck"
+      revision     = 1 
+      path         = "demo-health"
+
+      # This is a bit hardcoded, the C# code determines the final paths
+      # of the URL and there isn't an easy way to import the Paths
+      # into terraform.  So I'm hardcoding this path for sake of 
+      # demo simplicity.  
+      service_url  = "https://${module.fn_demo.name}.azurewebsites.net/api/healthcheck"
+
+      products = [ module.product.product_id ]
+      subscription_required = false
+      policies = local.no_policy
+
+    }
+
+  }
+}
 
 # Teraform Docs: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_api_operation
 # Underlying API docs: https://docs.microsoft.com/en-us/rest/api/apimanagement/2019-12-01/apioperation/createorupdate
@@ -113,7 +143,7 @@ resource "azurerm_api_management_api_operation" "name_get" {
   operation_id        = "azurerm-demo-get"
   display_name        = "Azure Demo Get"
   description         = "<h2>Get<h2> - perform a get with a name parameter"
-  method              = "get"
+  method              = "GET"
   url_template        = "/AzureRMDemo"  
   response {
     status_code = 200
@@ -137,12 +167,12 @@ resource "azurerm_api_management_api_operation" "name_get" {
 resource "azurerm_api_management_api_operation" "health_get" {
   resource_group_name = local.context.resource_group_name
   api_management_name = module.apim.name 
-  api_name            = module.demo_api_fct.name 
+  api_name            = module.demo_api_health.name 
   operation_id        = "healthcheck"
   display_name        = "Health Check"
   description         = "Returns if the resources by the Azure Function are working."
-  method              = "get"
-  url_template        = "/healthcheck"  # do not add any paths to the URL passed to the Azure Function, 
+  method              = "GET"
+  url_template        = "/"  # do not add any paths to the URL passed to the Azure Function, 
   response {
     status_code = 200
   }

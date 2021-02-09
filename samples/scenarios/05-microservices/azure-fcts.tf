@@ -83,7 +83,7 @@ module "fn_demo" {
   observability_settings = local.observability_settings
   service_settings       = {
       plan = module.api_hosting_plan.id
-      name = "${module.coreinfra.context.application_name}-${module.coreinfra.context.environment_name}-demo"
+      name = local.default_resource_name
       runtime_version = "~3"
       runtime_type = "dotnet"
       app_settings = {
