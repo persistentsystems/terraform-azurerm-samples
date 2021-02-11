@@ -7,7 +7,7 @@ module "waf" {
         enabled = true 
         policy = {
             custom_block_response_status_code = "403"
-            custom_block_response_body        = "UmVxdWVzdCBOb3QgQXV0aG9yaXplZA=="
+            custom_block_response_body        = "UmVxdWVzdCBOb3QgQXV0aG9yaXplZA=="  # echo -n "Request Not Authorized" | base64
             mode                              = "Prevention"
             redirect_url                      = "https://YourErrorPage.domain.com" 
         }
