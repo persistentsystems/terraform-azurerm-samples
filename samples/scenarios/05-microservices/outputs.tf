@@ -6,7 +6,7 @@ output demo_subscription_key {
 
 }
 output test_azure_fct_url {
-    value = "curl 'https://${module.fn_demo.hostname}/api/AzureRMDemo?name=NealArmstrong'"
+    value = "curl --cert ./certs/clients/az-fct/cert.pem --key ./certs/clients/az-fct/key.pem 'https://${module.fn_demo.hostname}/api/AzureRMDemo?name=NealArmstrong'"
 }
 output test_azure_fct_healthcheck {
     value = "curl 'https://${module.fn_demo.hostname}/api/healthcheck'"
